@@ -1,7 +1,6 @@
 from settings import *
 from random import choice
-from sys import exit
-from os.path import join
+
 
 from timer import Timer
 
@@ -67,7 +66,8 @@ class Game:
 	def check_game_over(self):
 		for block in self.tetromino.blocks:
 			if block.pos.y < 0:
-				exit()
+				self.game_over = True
+				return
 
 	def create_new_tetromino(self):
 		self.landing_sound.play()
@@ -168,6 +168,7 @@ class Game:
 		self.draw_grid()
 		self.display_surface.blit(self.surface, (PADDING,PADDING))
 		pygame.draw.rect(self.display_surface, LINE_COLOR, self.rect, 2, 2)
+
 
 class Tetromino:
 	def __init__(self, shape, group, create_new_tetromino, field_data):
